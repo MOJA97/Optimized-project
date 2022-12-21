@@ -285,6 +285,8 @@ public class Selenium_Locators{
 		screenshot("Current Page");
 		System.out.println("Current page Screenshot");
 		
+		String currentUrl = driver.getCurrentUrl();
+		System.out.println(currentUrl);
 		
 		
 
