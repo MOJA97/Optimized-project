@@ -74,6 +74,154 @@ public class Selenium_Methods {
 
 	}
 		
+	public static void clickon_Element(WebElement element) {
+		element.click();
+
+	}
+
+	public static void single_WindowHandling(WebElement element) {
+
+		String registerpage = driver.getWindowHandle();
+		System.out.println(registerpage);
+
+		Set<String> all_ID = driver.getWindowHandles();
+		System.out.println(all_ID);
+
+		for (String register_ID : all_ID) {
+			if (register_ID.equals(registerpage)) {
+				continue;
+			} else {
+				driver.switchTo().window(register_ID);
+			}
+
+		}
+
+	}
+
+	public static String get_Particular_Data() throws IOException, InvalidFormatException {
+
+		
+		File f = new File("C:\\Users\\Javed\\eclipse-workspace\\Project_Maven\\Project_Name\\Get particular data.xlsx");
+		
+		FileInputStream fRead = new FileInputStream(f);
+		
+		Workbook wb = new XSSFWorkbook(f);
+		
+		Sheet sheet = wb.getSheet("Data");
+		
+		Row row = sheet.getRow(2);
+		Cell cell = row.getCell(1);
+		
+		CellType cellType = cell.getCellType();
+		
+		if (cellType.equals(CellType.STRING)) {
+			
+			value = cell.getStringCellValue();
+		}
+		
+		else if (cellType.equals(CellType.NUMERIC)) {
+			
+			double D = cell.getNumericCellValue();
+			
+		int j = (int)D;
+		
+		value = String.valueOf(j);
+		
+		
+		
+	}
+		return value;
+	
+	}
+	
+	public static String get_Data() throws IOException {
+		
+		File f = new File("C:\\Users\\Javed\\eclipse-workspace\\Project_Maven\\Project_Name\\Test Case Project-1(ADACTIN HOTEL RESERVATION).xlsx");
+		
+		FileInputStream fRead = new FileInputStream(f);
+		
+		Workbook wb = new XSSFWorkbook(fRead);
+		
+		Sheet s = wb.getSheetAt(0);
+		
+		int No_of_Rows = s.getPhysicalNumberOfRows();
+		
+		System.out.println("Rows count:"+ No_of_Rows);
+		
+		for (int i = 0; i < No_of_Rows; i++) {
+			
+			Row row = s.getRow(i);
+			//to count the cells
+			int no_of_cells = row.getPhysicalNumberOfCells();
+			System.out.println("cells count:"+ no_of_cells);
+//Nested loop
+		for (int j = 0; j < no_of_cells; j++) {
+			Cell cell = row.getCell(j);
+		//for cellType
+			CellType ct = cell.getCellType();
+			//STRING AND NUMERIC
+			
+			if (ct.equals(CellType.STRING)) {
+				
+				String Value = cell.getStringCellValue();
+				System.out.print(":"+ Value);
+				
+			}
+			else if (ct.equals(CellType.NUMERIC)) {
+				
+				double d = cell.getNumericCellValue();
+				
+				int c = (int) d;
+				
+				String valueOf = String.valueOf(c);
+				System.out.print(":"+ valueOf);
+				
+			}
+			
+		}
+		}
+	
+		return value;
+	
+	
+	
+	}
+	public static String get_Data_excel(String path, int index, int row, int cell) throws InvalidFormatException, IOException {
+		 
+		File f = new File(path);
+		
+		FileInputStream fis = new FileInputStream(f);
+		
+		Workbook wb = new XSSFWorkbook(f);
+		
+		Sheet sheetAt = wb.getSheetAt(index);
+		
+		Row row2 = sheetAt.getRow(row);
+		
+		Cell cellname = row2.getCell(cell);
+		
+		CellType ct = cellname.getCellType();
+		
+		if (ct.equals(CellType.STRING)) {
+			value = cellname.getStringCellValue();
+		}
+		else if (ct.equals(CellType.NUMERIC)) {
+			
+		double d = cellname.getNumericCellValue();
+
+		int j = (int) d;
+		
+		value = String.valueOf(j);
+		}	
+		return value;
+	}
+	
+	public static void browser_Close() {
+		
+		driver.close();
+
+		
+	}
 
 
 }
